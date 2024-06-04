@@ -1,1 +1,8 @@
-data
+pretrained_models/*
+myreproduce*
+experiments/
+data/
+!data/env
+__pycache__
+
+.*
