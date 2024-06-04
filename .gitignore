@@ -4,5 +4,3 @@ experiments/
 data/
 !data/env
 __pycache__
-
-.*
