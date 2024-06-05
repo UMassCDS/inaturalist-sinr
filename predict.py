@@ -9,7 +9,8 @@ train_params['experiment_name'] = 'pre_trained_models' # This will be the name o
 
 #evaluate model
 def evaluate(model_type):
-    for eval_type in ['snt', 'iucn', 'geo_prior', 'geo_feature']:
+    #, 'geo_prior', 'geo_feature'
+    for eval_type in ['snt', 'iucn']:
         #model parameters
         eval_params = {}
         eval_params['exp_base'] = '../../'
@@ -26,8 +27,12 @@ def evaluate(model_type):
         np.save(os.path.join(eval_params['exp_base'], train_params['experiment_name'], f'results_{eval_type}.npy'), cur_results)
 
 def main():
-    model_type = 'model_an_full_input_enc_sin_cos_hard_cap_num_per_class_1000.pt' 
-    evaluate(model_type)
+    model_type1 = 'model_an_full_input_enc_sin_cos_hard_cap_num_per_class_10.pt' 
+    model_type2 = 'model_an_full_input_enc_sin_cos_hard_cap_num_per_class_100.pt' 
+    model_type3 = 'model_an_full_input_enc_sin_cos_hard_cap_num_per_class_1000.pt'
+    models = [model_type1, model_type2, model_type3]
+    for i in range(0,3):
+        evaluate(models[i])
 
 if __name__=="__main__": 
     main()
