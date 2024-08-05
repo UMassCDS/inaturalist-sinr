@@ -12,7 +12,7 @@
 
 ### Changed
 - `README.md` updated with instructions on fine tuning
-- `losses.py` added 2 new loss functions that are used in fine tuning
+- `losses.py` added 4 new loss functions that are used in fine tuning
 
 ## 6/3/2024 v1.0.0
 ### Added

@@ -10,8 +10,6 @@ import fine_tune
 
 train_params = {}
 
-train_params['experiment_name'] = 'demo' # This will be the name of the directory where results for this run are saved.
-
 '''
 species_set
 - Which set of species to train on.
@@ -43,9 +41,9 @@ train_params['input_enc'] = 'sin_cos'
 '''
 loss
 - Which loss to use for training.
-- Valid values: 'an_full', 'an_slds', 'an_ssdl', 'an_full_me', 'an_slds_me', 'an_ssdl_me', 'bce' (for fine tuning), 'bce_dl_an' (for_fine_tuning)
+- Valid values: 'an_full', 'an_slds', 'an_ssdl', 'an_full_me', 'an_slds_me', 'an_ssdl_me', 'neg_log_loss' (for fine tuning) , 'bce' (for fine tuning), 'neg_lod_dl_an' (for fine tuning), 'bce_dl_an' (for_fine_tuning)
 '''
-train_params['loss'] = 'bce_dl_an'
+train_params['loss'] = 'neg_log_dl_an'
 
 with open("paths.json", 'r') as f:
     paths = json.load(f)
@@ -71,6 +69,7 @@ pre_trained_models = {
     }
 }
 
+train_params['experiment_name'] = 'demo' # This will be the name of the directory where results for this run are saved.
 train_params['log_frequency'] = 10 # how frequently the program will log training progress
 train_params['batch_size'] = 128 # batch size affects the speed of execution, and how the model will learn
 
@@ -78,10 +77,10 @@ train_params['pretrain_model_path'] = os.path.join(pretrain_path, pre_trained_mo
 train_params['annotation_file'] = 'example.csv' # enter the csv file you want to train on
 train_params['model_name'] = 'example' # name your output model, it will be saved in ./fine-tuned/${experiment_name}/${model_name}.pt
 
-train_params['lr'] = 1e-4 # learning rate
+train_params['lr'] = 1e-5 # learning rate
 train_params['lr_decay'] = 0.8 # decay rate at each epoch
 
-train_params['bce_weight'] = 1 # weight for the bce loss in bce_dl_an
+train_params['bce_weight'] = 10 # weight for the bce loss in bce_dl_an
 train_params['dl_an_weight'] = 1000 # weight for the dl_an loss in bce_dl_an
 train_params['num_epochs'] = 10 # how many epochs to train for
 
