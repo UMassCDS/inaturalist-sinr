@@ -53,9 +53,9 @@ def bce(batch, model, params, loc_to_feats):
 
     loc_emb = model(loc_feat, return_feats=True)
     loc_pred = torch.sigmoid(model.class_emb(loc_emb))
-    weights = torch.where(types == 0, torch.tensor(100.0).to(params['device']), torch.tensor(1.0).to(params['device']))
-    weights = weights.to(params['device'])
-    bce_loss = F.binary_cross_entropy(loc_pred[inds[:batch_size], class_id], types.float(), weights)
+    # weights = torch.where(types == 0, torch.tensor(100.0).to(params['device']), torch.tensor(1.0).to(params['device']))
+    # weights = weights.to(params['device'])
+    bce_loss = F.binary_cross_entropy(loc_pred[inds[:batch_size], class_id], types.float())
     return bce_loss
 
 def an_ssdl(batch, model, params, loc_to_feats, neg_type='hard'):
