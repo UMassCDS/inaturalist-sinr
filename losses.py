@@ -253,7 +253,7 @@ def neg_log_dl_an(batch, model, params, loc_to_feats, neg_type='hard'):
     loc_pred_input = loc_pred[inds[:batch_size], class_id]
     dl_an = F.binary_cross_entropy(loc_pred_input, torch.zeros_like(loc_pred_input))
 
-    return nl_loss * params['bce_weight'] + dl_an * params['dl_an_weight']
+    return nl_loss * params['prior_weight'] + dl_an * params['dl_an_weight']
 
 
 def bce_dl_an(batch, model, params, loc_to_feats, neg_type='hard'):
@@ -289,4 +289,4 @@ def bce_dl_an(batch, model, params, loc_to_feats, neg_type='hard'):
     loc_pred_input = loc_pred[inds[:batch_size], class_id]
     dl_an = F.binary_cross_entropy(loc_pred_input, torch.zeros_like(loc_pred_input))
 
-    return bce_loss * params['bce_weight'] + dl_an * params['dl_an_weight']
+    return bce_loss * params['prior_weight'] + dl_an * params['dl_an_weight']

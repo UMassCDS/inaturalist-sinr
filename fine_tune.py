@@ -137,13 +137,14 @@ class FineTuner():
         self.encode_location = self.loader.dataset.enc.encode
 
         if freeze_loc_emb:
+            self.optimizer = torch.optim.Adam(self.model.class_emb.parameters(), params['lr'])
             for param in self.model.parameters():
                 param.requires_grad = False
             for param in self.model.class_emb.parameters():
                 param.requires_grad = True
-            
-        # self.optimizer = torch.optim.Adam(self.model.parameters(), params['lr'])
-        self.optimizer = torch.optim.Adam(self.model.class_emb.parameters(), params['lr'])
+        else:
+            self.optimizer = torch.optim.Adam(self.model.parameters(), params['lr'])
+        
         self.lr_scheduler = torch.optim.lr_scheduler.ExponentialLR(self.optimizer, gamma=params['lr_decay'])
     
     def save_model(self):

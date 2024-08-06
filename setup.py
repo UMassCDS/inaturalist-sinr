@@ -30,7 +30,7 @@ def get_default_params_train(overrides={}):
     params['pretrain_model_path'] = ''
     params['annotation_file'] = ''
     params['model_name'] = ''
-    params['bce_weight'] = 1
+    params['prior_weight'] = 1
     params['dl_an_weight'] = 1
 
     '''

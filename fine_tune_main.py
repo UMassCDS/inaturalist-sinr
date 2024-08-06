@@ -70,17 +70,17 @@ pre_trained_models = {
 }
 
 train_params['experiment_name'] = 'demo' # This will be the name of the directory where results for this run are saved.
-train_params['log_frequency'] = 10 # how frequently the program will log training progress
-train_params['batch_size'] = 128 # batch size affects the speed of execution, and how the model will learn
+train_params['log_frequency'] = 100 # how frequently the program will log training progress
+train_params['batch_size'] = 64 # batch size affects the speed of execution, and how the model will learn
 
 train_params['pretrain_model_path'] = os.path.join(pretrain_path, pre_trained_models['npc1000']['path']) # you can choose a base model, refer to dictionary above
 train_params['annotation_file'] = 'example.csv' # enter the csv file you want to train on
 train_params['model_name'] = 'example' # name your output model, it will be saved in ./fine-tuned/${experiment_name}/${model_name}.pt
 
-train_params['lr'] = 1e-5 # learning rate
+train_params['lr'] = 1e-4 # learning rate
 train_params['lr_decay'] = 0.8 # decay rate at each epoch
 
-train_params['bce_weight'] = 10 # weight for the bce loss in bce_dl_an
+train_params['prior_weight'] = 0.1 # weight for the bce/neg_loss loss in bce_dl_an/neg_log_dl_an
 train_params['dl_an_weight'] = 1000 # weight for the dl_an loss in bce_dl_an
 train_params['num_epochs'] = 10 # how many epochs to train for
 
