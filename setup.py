@@ -32,6 +32,7 @@ def get_default_params_train(overrides={}):
     params['model_name'] = ''
     params['prior_weight'] = 1
     params['dl_an_weight'] = 1
+    params['freeze'] = True
 
     '''
     data

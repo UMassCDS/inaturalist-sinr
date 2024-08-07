@@ -43,7 +43,7 @@ loss
 - Which loss to use for training.
 - Valid values: 'an_full', 'an_slds', 'an_ssdl', 'an_full_me', 'an_slds_me', 'an_ssdl_me', 'neg_log_loss' (for fine tuning) , 'bce' (for fine tuning), 'neg_log_dl_an' (for fine tuning), 'bce_dl_an' (for_fine_tuning)
 '''
-train_params['loss'] = 'bce' # use bce
+train_params['loss'] = 'bce'
 
 with open("paths.json", 'r') as f:
     paths = json.load(f)
@@ -83,6 +83,8 @@ train_params['lr_decay'] = 0.8 # decay rate at each epoch
 train_params['prior_weight'] = 0.1 # weight for the bce/neg_loss loss in bce_dl_an/neg_log_dl_an
 train_params['dl_an_weight'] = 1000 # weight for the dl_an loss in bce_dl_an
 train_params['num_epochs'] = 10 # how many epochs to train for
+
+train_params['freeze'] = True # freeze model
 
 if __name__ == '__main__':
     fine_tune.launch_fine_tuning_run(train_params)

@@ -219,7 +219,7 @@ def launch_fine_tuning_run(ovr):
     print('Params: ', myparams)
 
     # train:
-    trainer = FineTuner(model, train_loader, params, True) # True: freezes the locational embedder of the model with freeze it only trains class_emb the last layer, False: trains the whole network (predictions for unannotated species will also change)
+    trainer = FineTuner(model, train_loader, params, params['freeze']) # True: freezes the locational embedder of the model with freeze it only trains class_emb the last layer, False: trains the whole network (predictions for unannotated species will also change)
     for epoch in range(0, params['num_epochs']):
         print(f'epoch {epoch+1}')
         trainer.train_one_epoch()
