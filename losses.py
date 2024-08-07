@@ -59,8 +59,7 @@ def neg_log_loss(batch, model, params, loc_to_feats):
     loc_pred = torch.sigmoid(model.class_emb(loc_emb))
     falsy = torch.ones_like(loc_pred) - loc_pred
     truthy = loc_pred
-    types_reshaped = types.unsqueeze(1).expand_as(loc_pred)
-    loc_pred = torch.where(types_reshaped == 0, falsy, truthy)
+    loc_pred = torch.where(types.unsqueeze(1) == 0, falsy, truthy)
 
     nl_loss = neg_log(loc_pred)
     return nl_loss.mean()

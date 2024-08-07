@@ -43,7 +43,7 @@ loss
 - Which loss to use for training.
 - Valid values: 'an_full', 'an_slds', 'an_ssdl', 'an_full_me', 'an_slds_me', 'an_ssdl_me', 'neg_log_loss' (for fine tuning) , 'bce' (for fine tuning), 'neg_log_dl_an' (for fine tuning), 'bce_dl_an' (for_fine_tuning)
 '''
-train_params['loss'] = 'bce'
+train_params['loss'] = 'bce' # use bce
 
 with open("paths.json", 'r') as f:
     paths = json.load(f)
@@ -74,7 +74,7 @@ train_params['log_frequency'] = 100 # how frequently the program will log traini
 train_params['batch_size'] = 512 # batch size affects the speed of execution, and how the model will learn
 
 train_params['pretrain_model_path'] = os.path.join(pretrain_path, pre_trained_models['npc1000']['path']) # you can choose a base model, refer to dictionary above
-train_params['annotation_file'] = 'example.csv' # enter the csv file you want to train on
+train_params['annotation_file'] = '2024-08-07.csv' # enter the csv file you want to train on
 train_params['model_name'] = 'example' # name your output model, it will be saved in ./fine-tuned/${experiment_name}/${model_name}.pt
 
 train_params['lr'] = 1e-4 # learning rate

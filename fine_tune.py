@@ -115,7 +115,7 @@ def get_annotation_data(params):
     annotation_class_ids = sorter[np.searchsorted(unique_taxa, annotation_labels, sorter=sorter)]
 
     class_to_taxa = unique_taxa.tolist()
-    print('cltt', len(class_to_taxa))
+    print('Classes loaded from train data: ', len(class_to_taxa))
 
     class_info_file = json.load(open(taxa_file, 'r'))
     class_names_file = [cc['latin_name'] for cc in class_info_file]
@@ -125,7 +125,6 @@ def get_annotation_data(params):
     # idx_ss = datasets.get_idx_subsample_observations(labels, params['hard_cap_num_per_class'], params['hard_cap_seed'])
     locs = torch.from_numpy(np.array(locs)) # convert to Tensor
     labels = torch.from_numpy(np.array(annotation_class_ids)) # class_ids
-    print('labels', len(labels))
     ds = datasets.BinaryLocationDataset(locs, labels, classes, hex_types, class_to_taxa, params['input_enc'], params['device']) # use labels loaded from metadata to avoid model dimension conflict
 
     return ds
@@ -177,7 +176,7 @@ class FineTuner():
             steps_trained += 1
             samples_processed += batch[0].shape[0]
             if steps_trained % self.params['log_frequency'] == 0:
-                print(f'[{samples_processed}/{len(self.loader.dataset)})] loss: {np.around(running_loss / self.params["log_frequency"], 4)}')
+                print(f'[{samples_processed}/{len(self.loader.dataset)}] loss: {np.around(running_loss / self.params["log_frequency"], 4)}')
                 running_loss = 0
             
         self.lr_scheduler.step()
