@@ -41,9 +41,9 @@ train_params['input_enc'] = 'sin_cos'
 '''
 loss
 - Which loss to use for training.
-- Valid values: 'an_full', 'an_slds', 'an_ssdl', 'an_full_me', 'an_slds_me', 'an_ssdl_me', 'neg_log_loss' (for fine tuning) , 'bce' (for fine tuning), 'neg_lod_dl_an' (for fine tuning), 'bce_dl_an' (for_fine_tuning)
+- Valid values: 'an_full', 'an_slds', 'an_ssdl', 'an_full_me', 'an_slds_me', 'an_ssdl_me', 'neg_log_loss' (for fine tuning) , 'bce' (for fine tuning), 'neg_log_dl_an' (for fine tuning), 'bce_dl_an' (for_fine_tuning)
 '''
-train_params['loss'] = 'neg_log_dl_an'
+train_params['loss'] = 'bce'
 
 with open("paths.json", 'r') as f:
     paths = json.load(f)
@@ -71,7 +71,7 @@ pre_trained_models = {
 
 train_params['experiment_name'] = 'demo' # This will be the name of the directory where results for this run are saved.
 train_params['log_frequency'] = 100 # how frequently the program will log training progress
-train_params['batch_size'] = 64 # batch size affects the speed of execution, and how the model will learn
+train_params['batch_size'] = 512 # batch size affects the speed of execution, and how the model will learn
 
 train_params['pretrain_model_path'] = os.path.join(pretrain_path, pre_trained_models['npc1000']['path']) # you can choose a base model, refer to dictionary above
 train_params['annotation_file'] = 'example.csv' # enter the csv file you want to train on

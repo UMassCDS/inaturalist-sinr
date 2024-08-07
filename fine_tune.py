@@ -102,13 +102,20 @@ def get_annotation_data(params):
 
     taxa_of_interest = datasets.get_taxa_of_interest(params['species_set'], params['num_aux_species'], params['aux_species_seed'], params['taxa_file'], taxa_file_snt)
     labels = load_inat_taxa(taxa_file)
-    print('Loaded labels from metadata json')
+    print('Loaded labels from metadata json', len(labels))
 
-    locs, _, hex_types = load_annotation_data(annotation_file, taxa_of_interest) # has only labels that are annotated, drop labels
-    print('Loaded annotations')
+    locs, annotation_labels, hex_types = load_annotation_data(annotation_file, taxa_of_interest) # has only labels that are annotated, drop labels
+    print('Loaded annotations', len(locs))
 
+    # _, _ = np.unique(annotation_labels, return_inverse=True)
     unique_taxa, class_ids = np.unique(labels, return_inverse=True)
+
+    # match ids
+    sorter = np.argsort(unique_taxa)
+    annotation_class_ids = sorter[np.searchsorted(unique_taxa, annotation_labels, sorter=sorter)]
+
     class_to_taxa = unique_taxa.tolist()
+    print('cltt', len(class_to_taxa))
 
     class_info_file = json.load(open(taxa_file, 'r'))
     class_names_file = [cc['latin_name'] for cc in class_info_file]
@@ -117,8 +124,8 @@ def get_annotation_data(params):
 
     # idx_ss = datasets.get_idx_subsample_observations(labels, params['hard_cap_num_per_class'], params['hard_cap_seed'])
     locs = torch.from_numpy(np.array(locs)) # convert to Tensor
-    labels = torch.from_numpy(np.array(class_ids))
-
+    labels = torch.from_numpy(np.array(annotation_class_ids)) # class_ids
+    print('labels', len(labels))
     ds = datasets.BinaryLocationDataset(locs, labels, classes, hex_types, class_to_taxa, params['input_enc'], params['device']) # use labels loaded from metadata to avoid model dimension conflict
 
     return ds

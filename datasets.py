@@ -28,7 +28,7 @@ class BinaryLocationDataset(torch.utils.data.Dataset):
         self.class_to_taxa = class_to_taxa
 
         # useful numbers:
-        self.num_classes = len(np.unique(labels))
+        self.num_classes = len(np.unique(class_to_taxa))
         self.input_dim = self.loc_feats.shape[1]
 
         if self.enc.raster is not None:
