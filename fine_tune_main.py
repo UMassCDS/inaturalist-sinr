@@ -84,7 +84,7 @@ train_params['prior_weight'] = 0.1 # weight for the bce/neg_loss loss in bce_dl_
 train_params['dl_an_weight'] = 1000 # weight for the dl_an loss in bce_dl_an
 train_params['num_epochs'] = 10 # how many epochs to train for
 
-train_params['freeze'] = True # freeze model
+train_params['freeze'] = True # freeze model, if True it will only train last layer
 
 if __name__ == '__main__':
     fine_tune.launch_fine_tuning_run(train_params)
