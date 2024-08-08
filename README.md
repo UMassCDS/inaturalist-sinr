@@ -191,18 +191,25 @@ Now run `python reproduce.py` to create recon results from pretrained models. Wh
 
 Contact Ozel with errors if any.
 
-### 🎛️ Fine Tuning
-Make sure you have followed the steps for downloading training data and pretrained models described above.
-
+### 💽 Extracting Annotations
 To extract annotation data from iNatAtor, use `data_extraction.ipynb` or `data_extraction.py` (to submit as jobs). You will need to confidure a .env that has connection secrets. If your database is running in your local computer and you want to use unity to extract data as a job you will need to build a tunnel. For development and testing I suggest running this script on the same computer as your database and then upload the .csv file into unity to `inaturalist-sinr/data/annotation`.
 
 You can use any `.csv` data as long as it supports the required columns described in `data_extraction.ipynb`. An `example.csv` is given to you as a sample data to test on.
 
-When your data is ready, you can use `.sh` scripts in `scripts/` or open an interactive VSCode session on Unity to start fine tuning (interactive VSCode is preferred because you can change hyperparameters and re-run the trainer quickly).
+### 🎛️ Fine Tuning
+Make sure you have followed the steps for downloading training data and pretrained models described above. You have two options for running fine tuning on Unity.
 
-If you are running jobs, you can run them as `sbatch scripts/fine_tune.sh`. You can use `results_from.sh` script to fill out model command details and submit the job to get the image.
+#### A.
+When your data is ready, you can use `.sh` scripts in `scripts/` to submit slurm jobs.
 
-If you are using interactive VSCode, you can run `python fine_tune_main.py` to start fine tuning. You can run `python viz_map.py --name fine_tuned --model_path /path/to/inaturalist-sinr/fine-tuned/demo/${YOUR_SAVED_MODEL_NAME}.pt --taxa_id ${TAXA}` to see updates on your predictions.
+You can run them as `sbatch scripts/fine_tune.sh`, the job outputs will saved in `scripts/out`. You can use `results_from.sh` script to fill out model command details and submit the job to get the image, it will be saved in `images/`.
+
+#### B.
+Open an interactive VSCode session on Unity to start fine tuning (interactive VSCode is preferred because you can change hyperparameters and re-run the trainer quickly). If you don't have access to Unity or slurm you can still follow along this option with your local VSCode or any other code editor.
+
+You can run `python fine_tune_main.py` to start fine tuning. You can run `python viz_map.py --name fine_tuned --model_path /path/to/inaturalist-sinr/fine-tuned/demo/${YOUR_SAVED_MODEL_NAME}.pt --taxa_id ${TAXA}` to see updates on your predictions.
+
+---
 
 Please refer to (fine-tuning report)[https://docs.google.com/document/d/17t-MRulBXyp-WsPVg_WaYRnvEutDUfsqRNVWgjVVFww/edit?usp=sharing] to get a deeper understanding of changes and updates.
 
