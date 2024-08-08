@@ -74,7 +74,7 @@ train_params['log_frequency'] = 100 # how frequently the program will log traini
 train_params['batch_size'] = 512 # batch size affects the speed of execution, and how the model will learn
 
 train_params['pretrain_model_path'] = os.path.join(pretrain_path, pre_trained_models['npc1000']['path']) # you can choose a base model, refer to dictionary above
-train_params['annotation_file'] = '2024-08-07.csv' # enter the csv file you want to train on
+train_params['annotation_file'] = 'example.csv' # enter the csv file you want to train on
 train_params['model_name'] = 'example' # name your output model, it will be saved in ./fine-tuned/${experiment_name}/${model_name}.pt
 
 train_params['lr'] = 1e-4 # learning rate
