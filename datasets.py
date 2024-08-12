@@ -4,7 +4,45 @@ import json
 import pandas as pd
 from calendar import monthrange
 import torch
+import torch.utils
+import torch.utils.data
+
 import utils
+
+class BinaryLocationDataset(torch.utils.data.Dataset):
+    def __init__(self, locs, labels, classes, hex_types, class_to_taxa, input_enc, device):
+        # handle input encoding:
+        self.input_enc = input_enc
+        if self.input_enc in ['env', 'sin_cos_env']:
+            raster = load_env()
+        else:
+            raster = None
+        self.enc = utils.CoordEncoder(input_enc, raster)
+
+        # define some properties:
+        self.locs = locs
+        self.loc_feats = self.enc.encode(self.locs)
+        self.labels = labels
+        self.classes = classes
+        self.hex_types = hex_types # holds 0 | 1
+        self.class_to_taxa = class_to_taxa
+
+        # useful numbers:
+        self.num_classes = len(np.unique(class_to_taxa))
+        self.input_dim = self.loc_feats.shape[1]
+
+        if self.enc.raster is not None:
+            self.enc.raster = self.enc.raster.to(device)
+
+    def __len__(self):
+        return self.loc_feats.shape[0]
+
+    def __getitem__(self, index):
+        loc_feat  = self.loc_feats[index, :]
+        loc       = self.locs[index, :]
+        class_id  = self.labels[index]
+        hex_type = self.hex_types[index]
+        return loc_feat, loc, class_id, hex_type
 
 class LocationDataset(torch.utils.data.Dataset):
     def __init__(self, locs, labels, classes, class_to_taxa, input_enc, device):
