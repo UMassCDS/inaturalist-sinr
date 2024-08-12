@@ -211,7 +211,7 @@ You can run `python fine_tune_main.py` to start fine tuning. You can run `python
 
 ---
 
-Please refer to (fine-tuning report)[https://docs.google.com/document/d/17t-MRulBXyp-WsPVg_WaYRnvEutDUfsqRNVWgjVVFww/edit?usp=sharing] to get a deeper understanding of changes and updates.
+Please refer to [fine-tuning report](https://docs.google.com/document/d/17t-MRulBXyp-WsPVg_WaYRnvEutDUfsqRNVWgjVVFww/edit?usp=sharing) to get a deeper understanding of changes and updates.
 
 Currently the `pretrained_models/model_an_full_input_enc_sin_cos_distilled_from_env.pt` model cannot be fine-tuned. We noticed that the model saved and a training batch had different dimenstions than what was returned from environmental input encoders.
 
